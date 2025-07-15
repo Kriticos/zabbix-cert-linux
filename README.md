@@ -27,7 +27,7 @@ UserParameter=cert.nginx.expira[*],/bskp/scripts/zabbix/certificados/cert-expira
 
 ## 🔧 3. Configuração do Host
 
-Para manter o ambiente organizado, crie um host com o nome “Certificados - Windows” ou outro de sua preferencia.
+Para manter o ambiente organizado, crie um host com o nome “Certificados - Linux” ou outro de sua preferencia.
 Em seguida, associe o template “BSKP - Certificados - Linux” e defina o IP do servidor onde os certificados estão instalados.
 
 💡 Essa configuração permite centralizar o monitoramento dos certificados de máquinas específicas com maior clareza e padronização.

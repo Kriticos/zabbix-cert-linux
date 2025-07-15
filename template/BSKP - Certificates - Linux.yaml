@@ -1,0 +1,49 @@
+zabbix_export:
+  version: '7.2'
+  template_groups:
+    - uuid: 5a2f9298501c4ef1aa4179895921da37
+      name: BSKP
+  templates:
+    - uuid: 151ad6ab2c644b4f9e5bc1c87aad2971
+      template: 'BSKP - Certificates - Linux'
+      name: 'BSKP - Certificates - Linux'
+      description: |
+        Template: Certificados - Windows
+        
+        Autor: Kriticos (blackskulp.com.br)
+        Criação: 2025-03-15
+        Versão: 1.0
+        
+        Descrição:
+        Este template realiza a descoberta automática de certificados instalados no repositório LocalMachine e monitora a data de expiração.
+        
+        A trigger é acionada 15 dias antes do vencimento do certificado, podendo ser ajustada conforme necessidade.
+      groups:
+        - name: BSKP
+      discovery_rules:
+        - uuid: c07a7c98c59a4d43bb755298081ed792
+          name: 'Certificado - LLD'
+          key: cert.lld.nginx
+          delay: 6h
+          item_prototypes:
+            - uuid: c3da18b845cb4e38a94c043a8967bd76
+              name: 'Certificado expirando - {#CERTCN}'
+              key: 'cert.nginx.expira[{#CERTCN}]'
+              delay: 6h
+              trends: '0'
+              units: 'dias restantes'
+              tags:
+                - tag: Certificados
+                  value: NGINX
+              trigger_prototypes:
+                - uuid: 33a189e4277d4415854dd13dbea79828
+                  expression: 'last(/BSKP - Certificates - Linux/cert.nginx.expira[{#CERTCN}])<15'
+                  name: '⚠️ Certificado {#CERTCN} vencendo em menos de 15 dias'
+                  priority: HIGH
+                  manual_close: 'YES'
+                  tags:
+                    - tag: Certificados
+                      value: NGINX
+      tags:
+        - tag: Certificados
+          value: NGINX

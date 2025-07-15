@@ -18,6 +18,9 @@ zabbix_export:
         Este template realiza a descoberta automática de certificados instalados no repositório LocalMachine e monitora a data de expiração.
         
         A trigger é acionada 15 dias antes do vencimento do certificado, podendo ser ajustada conforme necessidade.
+      vendor:
+        name: Kriticos
+        version: 1.0-1
       groups:
         - name: BSKP
       discovery_rules:
